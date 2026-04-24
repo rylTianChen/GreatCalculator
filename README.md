@@ -8,6 +8,8 @@
 ![Platform](https://img.shields.io/badge/Platform-Windows-lightgray)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+![运行效果](sample_photo.jpg)
+
 ## 🎯 核心特性
 - ✅ **无第三方依赖**：不依赖 GMP、Boost 等任何库
 - ✅ **千进制存储**：速度优于传统十进制
