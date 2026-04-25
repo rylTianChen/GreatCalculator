@@ -1,54 +1,63 @@
 @echo off
+
 set codename=GreatCalculator
 set exename=GreatCalculator
 set command=-static -O2 -Wall -std=c++14
 
-echo ¼ì²é±äÁ¿:
+:: ------ ç”Ÿæˆ ESC å­—ç¬¦ ------
+for /f %%a in ('echo prompt $E ^| cmd') do set "ESC=%%a"
+set "CERR=%ESC%[31m"
+set "CWRN=%ESC%[33m"
+set "CSUC=%ESC%[32m"
+set "CRST=%ESC%[0m"
+
+echo æ£€æŸ¥å˜é‡:
 if not defined codename (
-	echo   ´íÎó: Ô´´úÂëÃû³ÆÎª¿Õ
+	echo   %CERR%é”™è¯¯: æºä»£ç åç§°ä¸ºç©º%CRST%
 	pause
 	exit
 )
 if not defined exename (
-	echo   ¾¯¸æ: Î´Ö¸¶¨³ÌĞòÃû³Æ£¬Ä¬ÈÏÓëÔ´´úÂëÃû³ÆÏàÍ¬
+	echo   %CWRN%è­¦å‘Š: æœªæŒ‡å®šç¨‹åºåç§°ï¼Œé»˜è®¤ä¸æºä»£ç åç§°ç›¸åŒ%CRST%
 	set exename=%codename%
 )
-echo   ±äÁ¿ÎŞÎÊÌâ
+echo %CSUC%å˜é‡æ— é—®é¢˜%CRST%
+echo.
 
-echo ¼ì²éÎÄ¼ş:
+echo æ£€æŸ¥æ–‡ä»¶:
 if not exist "%codename%.cpp" (
-	echo   ´íÎó: %codename%.cpp²»´æÔÚ
+	echo   %CERR%é”™è¯¯: %codename%.cppä¸å­˜åœ¨%CRST%
 	pause
 	exit
 )
 if not exist "icon.ico" (
-	echo   ´íÎó: icon.ico²»´æÔÚ
+	echo   %CERR%é”™è¯¯: icon.icoä¸å­˜åœ¨%CRST%
 	pause
 	exit
 )
-echo   ÎÄ¼şÎŞÎÊÌâ
+echo %CSUC%æ–‡ä»¶æ— é—®é¢˜%CRST%
+echo.
 
-echo Éú³É×ÊÔ´ÎÄ¼ş
-if not exist "%codename%.rc" (
-	echo MAINICON ICON "icon.ico" > "%codename%.rc"
-)
-echo ±àÒëÍ¼±êÎÄ¼ş:
+echo ç”Ÿæˆèµ„æºæ–‡ä»¶
+echo MAINICON ICON "icon.ico" > "%codename%.rc"
+echo ç¼–è¯‘å›¾æ ‡æ–‡ä»¶:
 windres "%codename%.rc" -O coff -o "%codename%.res"
 if not errorlevel 1 (
-	echo   Í¼±ê±àÒë³É¹¦
+	echo   %CSUC%å›¾æ ‡ç¼–è¯‘æˆåŠŸ%CRST%
 ) else (
-	echo   Í¼±ê±àÒëÊ§°Ü
+	echo   %CERR%å›¾æ ‡ç¼–è¯‘å¤±è´¥%CRST%
 	pause
 	exit
 )
+echo.
 
-echo ¿ªÊ¼±àÒë:
+echo å¼€å§‹ç¼–è¯‘:
 g++ "%codename%.cpp" "%codename%.res" -o "%exename%.exe" %command%
 if not errorlevel 1 (
-	echo   Ô´´úÂë±àÒë³É¹¦
+	echo   %CSUC%æºä»£ç ç¼–è¯‘æˆåŠŸ%CRST%
 ) else (
-	echo   Ô´´úÂë±àÒëÊ§°Ü
+	echo   %CERR%æºä»£ç ç¼–è¯‘å¤±è´¥%CERR%
 )
-REM errorlevel: ÉÏÒ»ĞĞ³ÌĞò·µ»ØµÄÖµ, 0´ú±íÕı³£¡£
-REM if not errorlevel 1µÄÒâË¼ÊÇ!(errorlevel >= 1)
+REM errorlevel: ä¸Šä¸€è¡Œç¨‹åºè¿”å›çš„å€¼, 0ä»£è¡¨æ­£å¸¸ã€‚
+REM if not errorlevel 1çš„æ„æ€æ˜¯!(errorlevel >= 1)
 pause
