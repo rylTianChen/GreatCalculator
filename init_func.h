@@ -1,34 +1,38 @@
 #ifndef INIT_GR
 #define INIT_GR 4
  
-//³õÊ¼»¯
+//åˆå§‹åŒ–
 void instructions(int lang){
+	printf(COLOR_INS);
     if(lang == 1){
-        printf("¸ß¾«¶È¼ÆËãÆ÷ °æ±¾%s\n", version);
-        puts("¾ßÌåÊ¹ÓÃËµÃ÷¼ûREAD_ME.txt"); 
-        puts("ÇëÊäÈëÒ»Ìõ¼òµ¥ËãÊ½:");
+        printf("é«˜ç²¾åº¦è®¡ç®—å™¨ ç‰ˆæœ¬%s\n", version);
+        puts("å…·ä½“ä½¿ç”¨è¯´æ˜è§READ_ME.txt"); 
+        puts("è¯·è¾“å…¥ä¸€æ¡ç®€å•ç®—å¼:");
     }else if(lang == 2){
         printf("High-precision Calculator v%s\n", version);
         puts("See READ_ME.txt for detailed instructions");
         puts("Enter an expression:");
     }
+    printf(COLOR_ORI);
 }
 void init(){
+	#ifndef ANDR15
     freopen("input.log", "w", stdout);
     printf("GreatCalculator%s\n", version);
     freopen("output.log", "w", stdout);
     printf("GreatCalculator%s\n", version);
     out_con();
+    #endif
 }
 int lan_ch(){
     int lang = 0;
     freopen("lang.txt", "r", stdin);
     scanf("%d", &lang);
-    if(lang<1 || lang>2) puts("1.¼òÌåÖĞÎÄ\n2.English");
+    if(lang<1 || lang>2) puts("1.ç®€ä½“ä¸­æ–‡\n2.English");
     input_con();
  
     while(lang<1 || lang>2){
-        puts("ÇëÑ¡ÔñÒ»ÃÅÓïÑÔ¡£(ÊäÈë1»ò2)");
+        puts("è¯·é€‰æ‹©ä¸€é—¨è¯­è¨€ã€‚(è¾“å…¥1æˆ–2)");
         puts("Please choose a language.(Type in 1 or 2)");
         scanf("%d", &lang);
         clear_line();
@@ -36,7 +40,7 @@ int lan_ch(){
  
     freopen("lang.txt", "w", stdout);
     printf("%d\n", lang);
-    puts("1.¼òÌåÖĞÎÄ\n2.English");
+    puts("1.ç®€ä½“ä¸­æ–‡\n2.English");
     out_con();
     return lang;
 }
