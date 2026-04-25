@@ -5,7 +5,7 @@
 ![GitHub Stars](https://img.shields.io/github/stars/rylTianChen/GreatCalculator?style=social)
 ![GitHub Forks](https://img.shields.io/github/forks/rylTianChen/GreatCalculator?style=social)
 ![C++14](https://img.shields.io/badge/Language-C%2B%2B14-blue)
-![Platform](https://img.shields.io/badge/Platform-Windows-lightgray)
+![Platform](https://img.shields.io/badge/Platform-Windows-lightgray | Platform-Linux-lightgray | Platform-Termux-lightgray)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ![运行效果](sample_photo.jpg)
