@@ -6,12 +6,15 @@
 
 #ifndef COLOR_SET
 #define COLOR_SET 1225
-#include<windows.h>
-#define COLOR_BLUE "\033[34m"
-#define COLOR_RED "\033[31m"
+#define COLOR_RES "\033[36m"
+#define COLOR_ERR "\033[31m"
+#define COLOR_INS "\033[33m"
 #define COLOR_ORI "\033[0m"
 #endif
-// ÆôÓÃ ANSI ×ªÒåĞòÁĞÖ§³Ö
+
+// å¯ç”¨ ANSI è½¬ä¹‰åºåˆ—æ”¯æŒ
+#ifdef _WIN32
+#include<windows.h>
 #ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
 #endif
@@ -23,34 +26,38 @@ bool enable_ansi_support() {
     dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
     return SetConsoleMode(hOut, dwMode);
 }
+#endif
 
 vi EMPTY(1, 0);
-//ÎÄ¼şÁ÷
+//æ–‡ä»¶æµ
 void out_con(){
     #ifdef _WIN32
         freopen("CON", "w", stdout);
     #else
-        freopen("dev\tty", "w", stdout);
+        freopen("/dev/tty", "w", stdout);
     #endif
 }
 void input_con(){
     #ifdef _WIN32
         freopen("CON", "r", stdin);
     #else
-        freopen("dev\tty", "w", stdout);
+        freopen("/dev/tty", "r", stdout);
     #endif
-}//²»ÄÜÆµ·±Ê¹ÓÃ´Ëº¯Êı 
-//ÊäÈëÊä³öº¯Êı
-void in_log(char x){
+}//ä¸èƒ½é¢‘ç¹ä½¿ç”¨æ­¤å‡½æ•° 
+//è¾“å…¥è¾“å‡ºå‡½æ•°
+inline void in_log(char x){
+	#ifndef ANDR15
     freopen("input.log", "a", stdout);
     putchar(x); out_con();
+    #endif
 }
-void clear_line(){
+inline void clear_line(){
     char t = getchar();
     while(t != '\n'){
         in_log(t);
         t = getchar();
     }
+    in_log('\n');
 }
 int cli_ret(int x){
     clear_line();
@@ -59,11 +66,11 @@ int cli_ret(int x){
 inline void endline(){
 	puts("");
 }
-char input_check(vi a, vi b, char op){//¼ì²éÊäÈëÕıÈ·ĞÔ
+char input_check(vi a, vi b, char op){//æ£€æŸ¥è¾“å…¥æ­£ç¡®æ€§
     int na=abs(a[0]), nb = abs(b[0]);
-    if(!na || !nb || !op) return 1;//ÊäÈë²»ÍêÕû 
-    if(!is_zf(op) && !is_fh(op)) return 2;//ÔËËã·û´íÎó
-    return 0;//ÎŞ´íÎó 
+    if(!na || !nb || !op) return 1;//è¾“å…¥ä¸å®Œæ•´ 
+    if(!is_zf(op) && !is_fh(op)) return 2;//è¿ç®—ç¬¦é”™è¯¯
+    return 0;//æ— é”™è¯¯ 
 }
 char read(vi &a, vi &b, vi c, vi d, char &op){
     to_EMPTY(a), to_EMPTY(b); op = 0;
@@ -74,8 +81,8 @@ char read(vi &a, vi &b, vi c, vi d, char &op){
     int fh_cnt = 0;
     while((t = getchar())){
         in_log(t);
-        if(t < 20) break;//»»ĞĞ·û 
-        if(t<33 || t==',' || t=='_') continue;//ºöÂÔ¿Õ¸ñ,_ 
+        if(t < 20) break;//æ¢è¡Œç¬¦ 
+        if(t<33 || t==',' || t=='_') continue;//å¿½ç•¥ç©ºæ ¼,_ 
         if(t>='0' && t<='9'){
             if(!op) a.push_back(t-48), na++;
             else b.push_back(t-48), nb++;
@@ -92,11 +99,11 @@ char read(vi &a, vi &b, vi c, vi d, char &op){
         }else return cli_ret(3);
     }
  
-    //ÊäÈë²¹È« 
-    if(!na && !nb){//Ö»ÊäÈëÒ»¸öÔËËã·û
+    //è¾“å…¥è¡¥å…¨ 
+    if(!na && !nb){//åªè¾“å…¥ä¸€ä¸ªè¿ç®—ç¬¦
         if(fh_cnt > 1) return 2;
-        a_r = b_r = 0;//¶¼²»±Ø·´×ª 
-        if(op){//ÔËËã·û·Ç¼Ó¼õ 
+        a_r = b_r = 0;//éƒ½ä¸å¿…åè½¬ 
+        if(op){//è¿ç®—ç¬¦éåŠ å‡ 
             na=nd, za=zd, a=d;
             nb=nc, zb=zc, b=c;
         }else if(za){
@@ -124,19 +131,21 @@ char read(vi &a, vi &b, vi c, vi d, char &op){
     b[0] = nb*zf_int(zb);
  
     char r = input_check(a, b, op);
-    if(r) return 1;//ÊäÈë²»È«
+    if(r) return 1;//è¾“å…¥ä¸å…¨
     if(a_r) reverse(a);
     if(b_r) reverse(b);
     pop_front_zero(a);
     pop_front_zero(b);
-    return 0;//Õı³£·µ»Ø
+    return 0;//æ­£å¸¸è¿”å›
 }
 void out(vi c, char fi){
     int nc = abs(c[0]);
+    #ifndef ANDR15
     if(nc > 1e4) return;
+    #endif
     if(fi) freopen("output.log", "a", stdout);
 //    if(!fi) enable_ansi_support();
-    if(!fi) printf(COLOR_BLUE);
+    if(!fi) printf(COLOR_RES);
     putchar(int_zf(c[0]));
     for(; nc; nc--) putchar(c[nc]+48);
     endline();
@@ -145,20 +154,22 @@ void out(vi c, char fi){
 }
 void sci_out(vi c, int lang, char fi){
     int nc = abs(c[0]), i;
-    if(nc < 5) return;//²»±ØÓÃ¿ÆÑ§¼ÆÊı·¨
+    if(nc < 5) return;//ä¸å¿…ç”¨ç§‘å­¦è®¡æ•°æ³•
     if(fi) freopen("output.log", "a", stdout);
 //    if(!fi) enable_ansi_support();
-    if(!fi) printf(COLOR_BLUE);
+    if(!fi) printf(COLOR_RES);
     if(c[0] < 0) putchar('-');
     putchar(c[nc]+48);
     putchar('.');
     for(i=nc-1; nc-i<11 && i; i--) putchar(c[i]+48);
     printf("e%d\n", nc-1);
+    #ifndef ANDR15
     if(nc > 1e4){
 //    	printf("")
-        if(lang == 1) puts("Ç°Íùans.txt²é¿´¾«È·½á¹û");
+        if(lang == 1) puts("å‰å¾€ans.txtæŸ¥çœ‹ç²¾ç¡®ç»“æœ");
         else if(lang == 2) puts("see ans.txt for precise result");
     }
+    #endif
     if(!fi) printf(COLOR_ORI);
     if(fi) out_con(); 
 }
