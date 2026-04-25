@@ -5,7 +5,7 @@
 ![GitHub Stars](https://img.shields.io/github/stars/rylTianChen/GreatCalculator?style=social)
 ![GitHub Forks](https://img.shields.io/github/forks/rylTianChen/GreatCalculator?style=social)
 ![C++14](https://img.shields.io/badge/Language-C%2B%2B14-blue)
-![Platform](https://img.shields.io/badge/Platform-Windows-lightgray | Platform-Linux-lightgray | Platform-Termux-lightgray)
+![Platform](https://img.shields.io/badge/Platform-Windows-lightgray%20%7C%20Linux-lightgrey%20%7C%20Termux-lightgrey)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ![运行效果](sample_photo.jpg)
@@ -23,6 +23,7 @@
 2. 负数取模规则：余数与被除数同号
 3. 指数超过 8 位时，提示结果过大难以计算
 5. 最大长度限制：理论上int的最大值
+6. 若不希望进行文件操作(比如在Termux中), 请在编译时加入-DANDR15
 
 ## 📧 作者
 天辰
