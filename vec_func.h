@@ -2,7 +2,7 @@
 #define VEC_GR 2
 
 #include"numch_func.h" 
-//vector相关函数 
+//vector鐩稿叧鍑芥暟 
 void all_resize(int n, vi &a, vi &b, vi &c) {a.resize(n), b.resize(n), c.resize(n);}
 void to_EMPTY(vi &a) {a.clear(), a.push_back(0);}
 void vec_swap(vi &a, vi &b) {a.swap(b);}
@@ -42,7 +42,7 @@ vi zip(vi a){
     }
     b[0] = f*nb;
     return b;
-}//压位 
+}//鍘嬩綅 
 vi unzip(vi a){
     int f = a[0]>0 ? 1 : -1;
     int na = my::abs(a[0]), i;
@@ -57,6 +57,6 @@ vi unzip(vi a){
     b[0] = f*nb;
     pop_front_zero(b);
     return b;
-}//解压
+}//瑙ｅ帇
  
 #endif
