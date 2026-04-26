@@ -1,82 +1,41 @@
 #include<cstdio>
 #include<vector>
-typedef std::vector<int> vi;
-typedef long long ll;
-const char version[] = "1.5";
+#include"defs.h"
 #include"io_func.h"
+#include"errs.h"
 #include"init_func.h"
 #include"hpcalc.h"
 using namespace grnum;
 
-short math_check(vi &a, vi &b, char op){
-    if(op=='+' || op=='-' || op=='*') return 0;//必定能算
-    if(op == '^'){//幂运算判断
-        if(b[0] < 0) return 2;//负次幂
-        if(is_ZERO(a) && is_ZERO(b)) return 3;//0^0
-        if(a[0]==-1 && a[1]==1) return (b[1]&1) ? -3 : -2;
-        if(abs(a[0])>1 || a[1]>1){//非0 +1 -1
-            if(b[0] > 8) return 5;//结果太大
-        }
-    }
-    //不能除以0、模0
-    if(op=='/' && abs(b[0])==1 && b[1]==0) return 1;
-    if(op=='%' && abs(b[0])==1 && b[1]==0) return 4;
-    return 0;
-}
-
 int main(){
 	#ifdef _WIN32
-	enable_ansi_support();
+		enable_ansi_support();
 	#endif
     int ret, lang; char op;
     vi a(1, 0), b(1, 0), c(1, 0), d(1, 0);
-    #ifndef ANDR15 //To mark my Android phone
-    lang = lan_ch();
+    #ifndef ANDR15
+    	lang = lan_ch();
     #else
- 	lang = 2; //Use English in Android Termux
+ 		lang = 2;
 	#endif
-	instructions(lang); init();
+	instructions(lang);
+	init();
  
     while(1){
         endline();
         ret = read(a, b, c, d, op);
         if(ret){
-        	printf(COLOR_ERR);
-            if(lang == 1){
-                if(ret == 1) puts("输入不完整");
-                else if(ret == 2) puts("输入多余内容");
-                else if(ret == 3) puts("未知字符");
-            }else if(lang == 2){
-                if(ret == 1) puts("Incomplete input");
-                else if(ret == 2) puts("Redundant content");
-                else if(ret == 3) puts("Unknown character");
-            }
-            printf(COLOR_ORI);
+            error_output(lang, ret);
             continue;
         }
         ret = math_check(a, b, op);
         if(ret > 0){
-        	printf(COLOR_ERR);
-            if(lang == 1){
-                if(ret == 1) puts("不能除以0");
-                if(ret == 2) puts("暂不支持负次幂");
-                if(ret == 3) puts("0^0无意义");
-                if(ret == 4) puts("不能模0"); 
-                if(ret == 5) puts("结果过大");
-            }else if(lang == 2){
-                if(ret == 1) puts("Cannot divide by zero");
-                if(ret == 2) puts("Negative exponents not supported");
-                if(ret == 3) puts("0^0 is undefined");
-                if(ret == 4) puts("Cannot modulo by zero");
-                if(ret == 5) puts("The answer is too big"); 
-            }
-            printf(COLOR_ORI);
+        	error_output(lang, ret);
             continue;
         }
         d = c;
 	    HP A(zip(a)), B(zip(b)), C;
 	    //在了解存储逻辑之前, 不要使用这个构造函数
-	    //Befor you learn about storage method, do not use this constructor
 	    if(op == '+') C = A + B;
 	    if(op == '-') C = A - B;
 	    if(op == '*') C = A * B;
