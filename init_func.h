@@ -1,6 +1,10 @@
 #ifndef INIT_GR
 #define INIT_GR 4
- 
+
+#include<cstdio>
+#include"defs.h"
+#include"io_func.h"
+
 //初始化
 void instructions(int lang){
 	printf(COLOR_INS);
