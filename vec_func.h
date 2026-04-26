@@ -1,7 +1,9 @@
 #ifndef VEC_GR
 #define VEC_GR 2
 
-#include"numch_func.h" 
+#include"defs.h"
+#include"numch_func.h"
+ 
 //vector相关函数 
 void all_resize(int n, vi &a, vi &b, vi &c) {a.resize(n), b.resize(n), c.resize(n);}
 void to_EMPTY(vi &a) {a.clear(), a.push_back(0);}
