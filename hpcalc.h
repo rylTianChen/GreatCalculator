@@ -1,60 +1,60 @@
-//×¢Òâ: ´ËÍ·ÎÄ¼ş±»ĞŞ¸ÄÒÔÊÊÅä´ËÏîÄ¿
-//»ñÈ¡Ô­°æ¸ß¾«¶È¿â: https://github.com/rylTianChen/cpp_hpcalc_high-precision
+//æ³¨æ„: æ­¤å¤´æ–‡ä»¶è¢«ä¿®æ”¹ä»¥é€‚é…æ­¤é¡¹ç›®
+//è·å–åŸç‰ˆé«˜ç²¾åº¦åº“: https://github.com/rylTianChen/cpp_hpcalc_high-precision
 //Caution: This header is modified to fit this programme
 //To get original high-precision lib: https://github.com/rylTianChen/cpp_hpcalc_high-precision
 
 /*
-»¶Ó­Ê¹ÓÃ´Ë¸ß¾«¶È¿â!
-×÷Õß:Ìì³½
-°æ±¾:1.5
-Ê¹ÓÃËµÃ÷:
-	ÕâÊÇÒ»¸öÓĞ·ûºÅÕûÊı¸ß¾«¶È¼ÆËã¿â,²»Ö§³Ö¸¡µãÊıÔËËã¡£
-	±äÁ¿ÀàĞÍÃû³ÆÎªHP¡£Àı: HP a=2;¿ÉÒÔ¶¨ÒåÒ»¸öÃûÎªaµÄ¸ß¾«¶È±äÁ¿,Ëü´æ´¢µÄÕûÊıÎª2¡£
-	¿ÉÒÔÖ±½ÓÊ¹ÓÃÊıÑ§ÔËËã·û¡¢Î»ÔËËã·û¡¢Âß¼­ÔËËã·û½øĞĞÔËËã¡£Àı: HP a = b+2-3;
-	±¾¿âÖĞ°üº¬³Ë·½HP_pow()¡£Àı: HP_pow(a, b)»á·µ»ØaµÄb´Î·½¡£
-    ÊäÈë:
-        Ê¹ÓÃstd::cin½øĞĞÊäÈë¡£
-	    »òÕßÊ¹ÓÃgetHP()ÊäÈëÒ»¸ö¸ß¾«¶ÈÕûÊı¡£Àı: a = getHP();
-	    getHP()»áÏÈ¹ıÂË²»¿É¼û×Ö·û,È»ºó¿ªÊ¼ÊäÈë,Óöµ½·ÇÊı×Ö×Ö·ûÊ±½áÊøÊäÈë¡£
-	    Èç¹ûÃ»ÓĞÊäÈëÊı,¸ß¾«¶È±äÁ¿µÄÖµÊÇEMPTY¡£
-    Êä³ö:
-    	Ê¹ÓÃstd::cout½øĞĞÊä³ö¡£
-    	»òÕßÊ¹ÓÃputHP()»òputsHP()Êä³öÒ»¸ö¸ß¾«¶ÈÊı¡£Àı: putsHP(a);
-		putsHP()»á¶îÍâÊä³öÒ»¸ö»»ĞĞ·û¡£
-    ´íÎó·µ»ØÖµ:
-	    Èô³öÏÖÒÑÖª´íÎó,·µ»ØÖµ¶¼ÊÇEMPTY,¼´¿ÕÖµ¡£
-	    Ê¹ÓÃisEMPTY()»ñµÃÒ»¸öHP±äÁ¿ÊÇ·ñÊÇ¿ÕÖµ¡£Àı: if(a.isEMPTY())
-    ×¢Òâ£º
-    	1.¸ºÊıÈ¡Ä£¹æÔò£ºÓàÊıÓë±»³ıÊıÍ¬ºÅ(Àı£º(-7)%3=-1¡¢7%(-3)=1)¡£
-    	2.ÓÉÓÚÌì³½²»¹»´ÏÃ÷£¬±¾¿â²»°üº¬Î»ÔËËã×óÒÆ¡¢ÓÒÒÆ¡£
-    	3.Äã¿ÉÒÔ´Ó×Ö·û´®¹¹ÔìÒ»¸ö¸ß¾«¶ÈÕûÊı¡£ Àı:HP a = "-3298239482049823094328";
-		  Èô´Ë×Ö·û´®²»ÊÇÒ»¸öÊı£¬±äÁ¿µÄÖµÊÇEMPTY¡£
-    	4.½«HP×ª»»Îªint»òllÊ±,ÈôHPÖµ³¬¹ıint»òll·¶Î§,·µ»ØÖµÊÇ0¡£
-    	5.³Ë·½ÔËËãÏŞÖÆ£ºµ±Ö¸ÊıµÄÊ®½øÖÆÎ»Êı³¬¹ı8Î»Ê±,ÅĞ¶¨½á¹û¹ı´ó,HP_pow()·µ»ØEMPTY¡£
-    	6.Èô¼ÆËã½á¹û³öÏÖ´íÎó£¬¼´Ä³Ğ©Î»ÉÏµÄÖµÊÇ¸ºÊı£¬·µ»ØÖµÊÇEMPTY¡£
-    	7.Èô²ÎÓëÔËËãµÄÊı°üº¬EMPTY¿ÕÖµ£¬ÊıÑ§ÔËËã·û·µ»ØEMPTY£¬Âß¼­ÔËËã·û·µ»Øfalse¡£
-    	8.ÓÉÓÚ´æ´¢·½·¨£¬³¤¶È²»µÃ³¬¹ıintµÄ·¶Î§¡£ 
-    ÆäËûÄÚÖÃº¯Êı:
-        clear():½«±äÁ¿µÄÖµÇå¿ÕÎªEMPTY¡£
-        length()¡¢size():»ñÈ¡±äÁ¿¾ø¶ÔÖµµÄÎ»Êı¡£EMPTY·µ»Ø0¡£
-        sign():»ñÈ¡±äÁ¿µÄ·ûºÅ¡£ÕıÊıÎª1, ¸ºÊıÎª-1, 0Îª0¡£EMPTY±äÁ¿µÄ·µ»ØÖµÎª0¡£
-        GetDigit(int p):»ñÈ¡´ÓÄ©Î»¿ªÊ¼µÚpÎ»µÄÊı×Ö¡£Èôp³¬³ö·¶Î§£¬·µ»Ø0¡£Èô±äÁ¿ÎªEMPTY£¬·µ»Ø0¡£
-        AppendZero(int m):ÔÚ±äÁ¿Ä©Î²¼ÓÈëm¸ö0¡£ÒªÇómÎªÕıÊı£¬ÇÒÌí¼Ó0ºó×Ü³¤¶È²»³¬¹ı1e8¡£
-        RemoveTail(int m):ÒÆ³ıÄ©Î²µÄmÎ»¡£ÒªÇómÎªÕıÊı¡£Èôm³¬¹ıÔ­³¤¶È£¬½á¹ûÎª0¡£
-		AppendZeroÓëRemoveTailÕı³£Ö´ĞĞÔò·µ»Ø0,³öÏÖ´íÎó·µ»Ø1¡£
-		reverse():½«ÊıµÄ¾ø¶ÔÖµ·´×ª,×Ô¶¯È¥³ıÇ°µ¼Áã¡£Àı:-380±äÎª-83¡£
-		SetDigit(int p, int y): ½«Ô­ÊıÄ©Î»¿ªÊ¼µÚpÎ»ÉèÖÃÎ»y¡£³É¹¦·µ»Ø0,³öÏÖÎÊÌâ·µ»Ø1¡£
-								²»¿ÉÉèÖÃ³¬³öÔ­Êı·¶Î§µÄÎ»ÖÃ¡£
-		CountDigit(int x): Í³¼ÆÕû¸öÊıÖĞÓĞ¼¸¸öx¡£ EMPTYµÄ·µ»ØÖµÊÇ0¡£
-		ISPalindrome(): ¹¦ÄÜÈçÆäÃû¡£
-		RemoveDigit(int p): É¾³ı´ÓÄ©Î»¿ªÊ¼µÚpÎ»µÄÊıÂë¡£³É¹¦·µ»Ø0,³öÏÖÎÊÌâ·µ»Ø1¡£
+æ¬¢è¿ä½¿ç”¨æ­¤é«˜ç²¾åº¦åº“!
+ä½œè€…:å¤©è¾°
+ç‰ˆæœ¬:1.5
+ä½¿ç”¨è¯´æ˜:
+	è¿™æ˜¯ä¸€ä¸ªæœ‰ç¬¦å·æ•´æ•°é«˜ç²¾åº¦è®¡ç®—åº“,ä¸æ”¯æŒæµ®ç‚¹æ•°è¿ç®—ã€‚
+	å˜é‡ç±»å‹åç§°ä¸ºHPã€‚ä¾‹: HP a=2;å¯ä»¥å®šä¹‰ä¸€ä¸ªåä¸ºaçš„é«˜ç²¾åº¦å˜é‡,å®ƒå­˜å‚¨çš„æ•´æ•°ä¸º2ã€‚
+	å¯ä»¥ç›´æ¥ä½¿ç”¨æ•°å­¦è¿ç®—ç¬¦ã€ä½è¿ç®—ç¬¦ã€é€»è¾‘è¿ç®—ç¬¦è¿›è¡Œè¿ç®—ã€‚ä¾‹: HP a = b+2-3;
+	æœ¬åº“ä¸­åŒ…å«ä¹˜æ–¹HP_pow()ã€‚ä¾‹: HP_pow(a, b)ä¼šè¿”å›açš„bæ¬¡æ–¹ã€‚
+    è¾“å…¥:
+        ä½¿ç”¨std::cinè¿›è¡Œè¾“å…¥ã€‚
+	    æˆ–è€…ä½¿ç”¨getHP()è¾“å…¥ä¸€ä¸ªé«˜ç²¾åº¦æ•´æ•°ã€‚ä¾‹: a = getHP();
+	    getHP()ä¼šå…ˆè¿‡æ»¤ä¸å¯è§å­—ç¬¦,ç„¶åå¼€å§‹è¾“å…¥,é‡åˆ°éæ•°å­—å­—ç¬¦æ—¶ç»“æŸè¾“å…¥ã€‚
+	    å¦‚æœæ²¡æœ‰è¾“å…¥æ•°,é«˜ç²¾åº¦å˜é‡çš„å€¼æ˜¯EMPTYã€‚
+    è¾“å‡º:
+    	ä½¿ç”¨std::coutè¿›è¡Œè¾“å‡ºã€‚
+    	æˆ–è€…ä½¿ç”¨putHP()æˆ–putsHP()è¾“å‡ºä¸€ä¸ªé«˜ç²¾åº¦æ•°ã€‚ä¾‹: putsHP(a);
+		putsHP()ä¼šé¢å¤–è¾“å‡ºä¸€ä¸ªæ¢è¡Œç¬¦ã€‚
+    é”™è¯¯è¿”å›å€¼:
+	    è‹¥å‡ºç°å·²çŸ¥é”™è¯¯,è¿”å›å€¼éƒ½æ˜¯EMPTY,å³ç©ºå€¼ã€‚
+	    ä½¿ç”¨isEMPTY()è·å¾—ä¸€ä¸ªHPå˜é‡æ˜¯å¦æ˜¯ç©ºå€¼ã€‚ä¾‹: if(a.isEMPTY())
+    æ³¨æ„ï¼š
+    	1.è´Ÿæ•°å–æ¨¡è§„åˆ™ï¼šä½™æ•°ä¸è¢«é™¤æ•°åŒå·(ä¾‹ï¼š(-7)%3=-1ã€7%(-3)=1)ã€‚
+    	2.ç”±äºå¤©è¾°ä¸å¤Ÿèªæ˜ï¼Œæœ¬åº“ä¸åŒ…å«ä½è¿ç®—å·¦ç§»ã€å³ç§»ã€‚
+    	3.ä½ å¯ä»¥ä»å­—ç¬¦ä¸²æ„é€ ä¸€ä¸ªé«˜ç²¾åº¦æ•´æ•°ã€‚ ä¾‹:HP a = "-3298239482049823094328";
+		  è‹¥æ­¤å­—ç¬¦ä¸²ä¸æ˜¯ä¸€ä¸ªæ•°ï¼Œå˜é‡çš„å€¼æ˜¯EMPTYã€‚
+    	4.å°†HPè½¬æ¢ä¸ºintæˆ–llæ—¶,è‹¥HPå€¼è¶…è¿‡intæˆ–llèŒƒå›´,è¿”å›å€¼æ˜¯0ã€‚
+    	5.ä¹˜æ–¹è¿ç®—é™åˆ¶ï¼šå½“æŒ‡æ•°çš„åè¿›åˆ¶ä½æ•°è¶…è¿‡8ä½æ—¶,åˆ¤å®šç»“æœè¿‡å¤§,HP_pow()è¿”å›EMPTYã€‚
+    	6.è‹¥è®¡ç®—ç»“æœå‡ºç°é”™è¯¯ï¼Œå³æŸäº›ä½ä¸Šçš„å€¼æ˜¯è´Ÿæ•°ï¼Œè¿”å›å€¼æ˜¯EMPTYã€‚
+    	7.è‹¥å‚ä¸è¿ç®—çš„æ•°åŒ…å«EMPTYç©ºå€¼ï¼Œæ•°å­¦è¿ç®—ç¬¦è¿”å›EMPTYï¼Œé€»è¾‘è¿ç®—ç¬¦è¿”å›falseã€‚
+    	8.ç”±äºå­˜å‚¨æ–¹æ³•ï¼Œé•¿åº¦ä¸å¾—è¶…è¿‡intçš„èŒƒå›´ã€‚ 
+    å…¶ä»–å†…ç½®å‡½æ•°:
+        clear():å°†å˜é‡çš„å€¼æ¸…ç©ºä¸ºEMPTYã€‚
+        length()ã€size():è·å–å˜é‡ç»å¯¹å€¼çš„ä½æ•°ã€‚EMPTYè¿”å›0ã€‚
+        sign():è·å–å˜é‡çš„ç¬¦å·ã€‚æ­£æ•°ä¸º1, è´Ÿæ•°ä¸º-1, 0ä¸º0ã€‚EMPTYå˜é‡çš„è¿”å›å€¼ä¸º0ã€‚
+        GetDigit(int p):è·å–ä»æœ«ä½å¼€å§‹ç¬¬pä½çš„æ•°å­—ã€‚è‹¥pè¶…å‡ºèŒƒå›´ï¼Œè¿”å›0ã€‚è‹¥å˜é‡ä¸ºEMPTYï¼Œè¿”å›0ã€‚
+        AppendZero(int m):åœ¨å˜é‡æœ«å°¾åŠ å…¥mä¸ª0ã€‚è¦æ±‚mä¸ºæ­£æ•°ï¼Œä¸”æ·»åŠ 0åæ€»é•¿åº¦ä¸è¶…è¿‡1e8ã€‚
+        RemoveTail(int m):ç§»é™¤æœ«å°¾çš„mä½ã€‚è¦æ±‚mä¸ºæ­£æ•°ã€‚è‹¥mè¶…è¿‡åŸé•¿åº¦ï¼Œç»“æœä¸º0ã€‚
+		AppendZeroä¸RemoveTailæ­£å¸¸æ‰§è¡Œåˆ™è¿”å›0,å‡ºç°é”™è¯¯è¿”å›1ã€‚
+		reverse():å°†æ•°çš„ç»å¯¹å€¼åè½¬,è‡ªåŠ¨å»é™¤å‰å¯¼é›¶ã€‚ä¾‹:-380å˜ä¸º-83ã€‚
+		SetDigit(int p, int y): å°†åŸæ•°æœ«ä½å¼€å§‹ç¬¬pä½è®¾ç½®ä½yã€‚æˆåŠŸè¿”å›0,å‡ºç°é—®é¢˜è¿”å›1ã€‚
+								ä¸å¯è®¾ç½®è¶…å‡ºåŸæ•°èŒƒå›´çš„ä½ç½®ã€‚
+		CountDigit(int x): ç»Ÿè®¡æ•´ä¸ªæ•°ä¸­æœ‰å‡ ä¸ªxã€‚ EMPTYçš„è¿”å›å€¼æ˜¯0ã€‚
+		ISPalindrome(): åŠŸèƒ½å¦‚å…¶åã€‚
+		RemoveDigit(int p): åˆ é™¤ä»æœ«ä½å¼€å§‹ç¬¬pä½çš„æ•°ç ã€‚æˆåŠŸè¿”å›0,å‡ºç°é—®é¢˜è¿”å›1ã€‚
 		
-	Äã¿ÉÒÔÖ±½Ó°ÑHP±äÁ¿¸³Öµ¸øint¡¢long long¡¢boolºÍstring¡£ 
-    ×£ÄúÊ¹ÓÃÓä¿ì!
-    Èô·¢ÏÖÎÊÌâ,ÇëÏòlyrTianChen09@outlook.com·´À¡¡£
-Ìì³½»¹¿ª·¢ÁËÒ»¸ö¸ß¾«¶È¼ÆËãÆ÷¡£»ñÈ¡·½Ê½£º
-	Á´½Ó: https://pan.baidu.com/s/1X_E5OkSiDlJ-IigefdfurA
-	ÌáÈ¡Âë: b2ef
+	ä½ å¯ä»¥ç›´æ¥æŠŠHPå˜é‡èµ‹å€¼ç»™intã€long longã€boolå’Œstringã€‚ 
+    ç¥æ‚¨ä½¿ç”¨æ„‰å¿«!
+    è‹¥å‘ç°é—®é¢˜,è¯·å‘lyrTianChen09@outlook.comåé¦ˆã€‚
+å¤©è¾°è¿˜å¼€å‘äº†ä¸€ä¸ªé«˜ç²¾åº¦è®¡ç®—å™¨ã€‚è·å–æ–¹å¼ï¼š
+	é“¾æ¥: https://pan.baidu.com/s/1X_E5OkSiDlJ-IigefdfurA
+	æå–ç : b2ef
 */
 /*
 Welcome to this high-precision library!
@@ -130,7 +130,7 @@ TianChen also developed a high-precision calculator.
     Extract code: b2ef
 */
 
-//Ê¾·¶´úÂë
+//ç¤ºèŒƒä»£ç 
 //sample code
 /*
 #include<iostream>
@@ -157,7 +157,7 @@ int main(){
 
 #ifndef HPCALC_H
 #define HPCALC_H 1031149997108990
-//²Â²ÂHPCALC_HÓĞÊ²Ã´ÒâË¼¡£
+//çŒœçŒœHPCALC_Hæœ‰ä»€ä¹ˆæ„æ€ã€‚
 //Guess what does HPCALC_H means.
 
 #include<vector>
@@ -171,13 +171,13 @@ namespace grnum{
 	typedef std::string str;
 	typedef long long ll;
 
-	static const char Ope[] = "*/^%";//ÔËËã·û operator
-	static const int JW = 1000;//Ç§½øÖÆ base-1000 storage
+	static const char Ope[] = "*/^%";//è¿ç®—ç¬¦ operator
+	static const int JW = 1000;//åƒè¿›åˆ¶ base-1000 storage
 	static const int BIT_JW = 1024;
-	//1024½øÖÆ£¬ÓÃÓÚÎ»ÔËËã
+	//1024è¿›åˆ¶ï¼Œç”¨äºä½è¿ç®—
 	//base-1024 storage, used in bitwise calculation
 	static const int KAR_LIMIT = 64;
-	//Ê¹ÓÃKaratsubaËã·¨µÄ³¤¶È×îĞ¡Öµ
+	//ä½¿ç”¨Karatsubaç®—æ³•çš„é•¿åº¦æœ€å°å€¼
 	//Mininum length for using Karatsuba
 	static const int LEN_LIMIT = 1e8;
 	static const int LL_LIMIT = 6;
@@ -185,39 +185,39 @@ namespace grnum{
 	static const ll MAX_LL =  9223372036854775807ll, MIN_LL = -9223372036854775807ll-1;
 	static const int INT_LEN = 9, LL_LEN = 18;
 	
-	static const vi EMPTY = {0};//Error·µ»ØÖµ error indicator
-	//EMPTYÌØÕ÷: EMPTY[0] = 0    Feature of EMPTY: EMPTY[0] = 0
+	static const vi EMPTY = {0};//Errorè¿”å›å€¼ error indicator
+	//EMPTYç‰¹å¾: EMPTY[0] = 0    Feature of EMPTY: EMPTY[0] = 0
 	const vi ONE = {1, 1}, M_ONE = {-1, 1}, ZERO = {1, 0};
 	static const vi BI = {2, 24, 1};
 	static const vi TWO = {1, 2}, TEN = {1, 10};
 
-	//ÊıÏà¹Øº¯Êı functions about numbers
+	//æ•°ç›¸å…³å‡½æ•° functions about numbers
 	static inline ll max(ll x, ll y) {return x>y ? x : y;}
 	static inline ll min(ll x, ll y) {return x<y ? x : y;}
 	static inline ll abs(ll x) {return x>0 ? x : -x;}
 	static inline void swap(int &x, int &y) {int t = x; x = y, y = t;}
 	static inline int intTOone(ll x) {return x>0 ? 1 : -1;}
 
-	//×Ö·ûÏà¹Øº¯Êı functions about characters
+	//å­—ç¬¦ç›¸å…³å‡½æ•° functions about characters
 	static inline char PosiNega(char x) {return x=='+' ? '-' : '+';}
 	static inline char signINmul(char x, char y) {return x==y ? '+' : '-';}
-	static inline bool IsDigit(char t) {return t>='0' && t<='9';}// ÊÇÊı×Ö
-	static inline bool IsSign(char t) {return t=='+' || t=='-';}// ÊÇÕı¸ººÅ
-	static inline bool IsOpe(char x){//ÊÇÔËËã·û
+	static inline bool IsDigit(char t) {return t>='0' && t<='9';}// æ˜¯æ•°å­—
+	static inline bool IsSign(char t) {return t=='+' || t=='-';}// æ˜¯æ­£è´Ÿå·
+	static inline bool IsOpe(char x){//æ˜¯è¿ç®—ç¬¦
 	    for(auto ch : Ope)
 	        if(ch && ch==x) return 1;
 	    return 0;
 	}
 
-	//ÊıºÍ·ûºÅ×ª»»º¯Êı functions about converting of numbers and characters
+	//æ•°å’Œç¬¦å·è½¬æ¢å‡½æ•° functions about converting of numbers and characters
 	static inline char intTOsign(int x) {return x>=0 ? '+' : '-';}
 	static inline char llTOsign(ll x) {return x>=0 ? '+' : '-';}
 	static inline char signTOint(char x) {return x=='+' ? 1 : -1;}
 
-	//vectorÏà¹Øº¯Êı functions about vector
-	static inline bool HP_IsZERO(const vi& a) {return abs(a[0])==1 && !a[1];}//ÊÇ0 Checks if the value is 0
-	static inline bool HP_IsONE(const vi& a) {return a[0]==1 && a[1]==1;}//ÊÇ1 Checks if the value is 1
-	static inline bool HP_IsM_ONE(const vi& a) {return a[0]==-1 && a[1]==1;}//ÊÇ-1 Checks if the value is -1
+	//vectorç›¸å…³å‡½æ•° functions about vector
+	static inline bool HP_IsZERO(const vi& a) {return abs(a[0])==1 && !a[1];}//æ˜¯0 Checks if the value is 0
+	static inline bool HP_IsONE(const vi& a) {return a[0]==1 && a[1]==1;}//æ˜¯1 Checks if the value is 1
+	static inline bool HP_IsM_ONE(const vi& a) {return a[0]==-1 && a[1]==1;}//æ˜¯-1 Checks if the value is -1
 	static inline void VecSwap(vi &a, vi &b) {a.swap(b);}
 	static inline void HP_PopFrontZero(vi &a){
         int n = abs(a[0]);
@@ -225,24 +225,24 @@ namespace grnum{
         while(n>1 && a[n]==0) n--;
         a[0] = n*f;
         a.resize(n+3, 0);
-	}//È¥³ıÇ°µ¼Áã Remove leading zeros
+	}//å»é™¤å‰å¯¼é›¶ Remove leading zeros
 	static inline short HP_VecCmp(const vi& a, const vi& b){
         int na=abs(a[0]), nb=abs(b[0]), i;
         if(na != nb) return na>nb ? 1 : -1;
         for(i=na; i>0; i--)
             if(a[i] != b[i]) return a[i]>b[i] ? 1 : -1;
         return 0;
-	}//ÎŞ·ûºÅÕûÊı±È½Ï´óĞ¡ Compare unsigned integers
+	}//æ— ç¬¦å·æ•´æ•°æ¯”è¾ƒå¤§å° Compare unsigned integers
 	static inline void HP_reverse(vi &a){
 	    int n = abs(a[0]), i;
 	    for(i=1; i+i<=n; i++)
 	        swap(a[i], a[n-i+1]);
-	}//µ¹Ğò´æ´¢ Reverse the vector storage
+	}//å€’åºå­˜å‚¨ Reverse the vector storage
 	static inline int get(const vi& a, int i){
 		if(i>0 && i<=abs(a[0])) return a[i];
 		else return 0;
 	}
-	inline vi HP_zip(const vi& a){//Ê®½øÖÆÑ¹ÎªÇ§½øÖÆ Compress decimal to thousand-based
+	inline vi HP_zip(const vi& a){//åè¿›åˆ¶å‹ä¸ºåƒè¿›åˆ¶ Compress decimal to thousand-based
 	    int f = a[0]>0 ? 1 : -1, n = abs(a[0]), i;
 	    int nb = (n+2)/3;
 	    vi b(nb+5, 0);
@@ -265,14 +265,14 @@ namespace grnum{
 	    b[0] = f*nb;
 	    HP_PopFrontZero(b);
 	    return b;
-	}//Ç§½øÖÆ½âÑ¹ÎªÊ®½øÖÆ Decompress thousand-based to decimal
+	}//åƒè¿›åˆ¶è§£å‹ä¸ºåè¿›åˆ¶ Decompress thousand-based to decimal
 	static inline ll HP_vecTOll(const vi& b){
 	    ll ans = 0; int nb = abs(b[0]);
 	    ll sign = intTOone(b[0]);
-		if(nb > 5) return 0;//¿ÉÄÜÒç³ö
+		if(nb > 5) return 0;//å¯èƒ½æº¢å‡º
 	    while(nb) ans = ans*JW+b[nb--];
 	    return ans*sign;
-	}//¸ß¾«¶È×ªÎªll    Convert HP to long long
+	}//é«˜ç²¾åº¦è½¬ä¸ºll    Convert HP to long long
 	static inline vi HP_intTOvec(int ai){
 		if(!ai) return ZERO;
 		vi b(1, 0);
@@ -304,13 +304,13 @@ namespace grnum{
 		for(; na; na--)
 			if(a[na] < 0) return 1;
 		return 0;
-	}//ºÏ·¨:0 ²»ºÏ·¨:1    Valid:0 Invalid:1
+	}//åˆæ³•:0 ä¸åˆæ³•:1    Valid:0 Invalid:1
 	inline void putvec(const vi& c){
 		for(auto i : c) printf("%d ", i);
 		puts("");
-	}//µ÷ÊÔÓÃ used to debug
+	}//è°ƒè¯•ç”¨ used to debug
 
-	//¸ß¾«¶È¼ÆËãº¯ÊıÉùÃ÷
+	//é«˜ç²¾åº¦è®¡ç®—å‡½æ•°å£°æ˜
 	//Declarations of HP calculation functions
 	static vi HP_Plus(vi a, vi b);
 	static vi HP_Minus(vi a, vi b);
@@ -319,7 +319,7 @@ namespace grnum{
 	static vi HP_Power(vi a, ll b);
 	static vi HP_Module(vi a, vi b);
 
-	//¸ß¾«¶ÈÎ»ÔËËãº¯ÊıÉùÃ÷
+	//é«˜ç²¾åº¦ä½è¿ç®—å‡½æ•°å£°æ˜
 	//Declarations of HP bitwise functions
 	static vi HP_ThouTOBit(vi a);
 	static vi HP_BitTOThou(vi a);
@@ -328,7 +328,7 @@ namespace grnum{
 	static vi HP_BitXor(vi a, vi b);
 	static vi HP_BitNot(vi a);
 	
-	//¸ß¾«¶È±È½ÏÔËËãº¯ÊıÉùÃ÷
+	//é«˜ç²¾åº¦æ¯”è¾ƒè¿ç®—å‡½æ•°å£°æ˜
 	//Declarations of HP comparison functions
 	static bool HP_gtr(const vi& a, const vi& b);
 	static bool HP_geq(const vi& a, const vi& b);
@@ -339,21 +339,21 @@ namespace grnum{
 
 	class HP{
 		private:
-			vi num;//¸ß¾«¶ÈÊı,Ç§½øÖÆ high-precision number, thousand-based
-			//num[0]: ´æ´¢³¤¶ÈºÍ·ûºÅ,num[0]<0ÔònumÊÇ¸ºÊı
-			//num[1~num[0]]: ´æ´¢ÊıÖµ
+			vi num;//é«˜ç²¾åº¦æ•°,åƒè¿›åˆ¶ high-precision number, thousand-based
+			//num[0]: å­˜å‚¨é•¿åº¦å’Œç¬¦å·,num[0]<0åˆ™numæ˜¯è´Ÿæ•°
+			//num[1~num[0]]: å­˜å‚¨æ•°å€¼
 
 			//num[0]: storage length and sign, if num[0]<0, num is negative
 			//num[1~num[0]]: storage the digits
 
 			char BitIsLatest;
-			//ÊÇ·ñ¸üĞÂÁË1024½øÖÆĞÎÊ½
+			//æ˜¯å¦æ›´æ–°äº†1024è¿›åˆ¶å½¢å¼
 			//if 1024-based form has been updated
-			vi bit;//1024½øÖÆ 1024-based
-			//bit[0]: ´æ´¢³¤¶È, bit[0]×ÜÊÇÕıÊı
-			//bit[1~bit[0]-1]: ´æ´¢1024½øÖÆÊıÖµ
-			//bit[bit[0]]: ´æ´¢·ûºÅ
-			//bit´æ´¢µÄÊÇ²¹Âë
+			vi bit;//1024è¿›åˆ¶ 1024-based
+			//bit[0]: å­˜å‚¨é•¿åº¦, bit[0]æ€»æ˜¯æ­£æ•°
+			//bit[1~bit[0]-1]: å­˜å‚¨1024è¿›åˆ¶æ•°å€¼
+			//bit[bit[0]]: å­˜å‚¨ç¬¦å·
+			//bitå­˜å‚¨çš„æ˜¯è¡¥ç 
 
 			//bit[0]: storates length, which is always positive
 			//bit[1~bit[0]-1]: storage 1024-based value
@@ -362,11 +362,11 @@ namespace grnum{
 
 		public:
     		/*
-            ±äÁ¿ÃüÃû¹æÔò:
-            	ÒÔ±äÁ¿xÎªÀı¡£
-            	ÈôÃû³ÆĞÎÈçx,xÊÇÒ»¸övi
-            	ÈôÃû³ÆĞÎÈçxi,xiÊÇÒ»¸öint»òll
-            	ÈôÃû³ÆĞÎÈçxbi,xbiÊÇÒ»¸öHP
+            å˜é‡å‘½åè§„åˆ™:
+            	ä»¥å˜é‡xä¸ºä¾‹ã€‚
+            	è‹¥åç§°å½¢å¦‚x,xæ˜¯ä¸€ä¸ªvi
+            	è‹¥åç§°å½¢å¦‚xi,xiæ˜¯ä¸€ä¸ªintæˆ–ll
+            	è‹¥åç§°å½¢å¦‚xbi,xbiæ˜¯ä¸€ä¸ªHP
 			*/
 			/*
 			Variable naming rules:
@@ -376,7 +376,7 @@ namespace grnum{
 				if xbi, it is an HP.
    			*/
 
-			//¹¹Ôìº¯Êı Constructors
+			//æ„é€ å‡½æ•° Constructors
 			HP(){
 				num.clear();
 				num.push_back(1);
@@ -486,15 +486,15 @@ namespace grnum{
 				BitIsLatest = 0;
 			}
 
-			//Îö¹¹º¯Êı Destructor
+			//ææ„å‡½æ•° Destructor
 			~HP(){
 				num.clear(); num.shrink_to_fit();
 				bit.clear(); bit.shrink_to_fit();
 			}
 
 			inline bool isEMPTY() const {return num[0] == 0;}
-			//ÊÇ·ñÎª´íÎóÖµ Checks if it is the empty (error) value
-    		inline void clear() {num.clear(), num.push_back(0), num.shrink_to_fit();}//Çå¿Õ clear
+			//æ˜¯å¦ä¸ºé”™è¯¯å€¼ Checks if it is the empty (error) value
+    		inline void clear() {num.clear(), num.push_back(0), num.shrink_to_fit();}//æ¸…ç©º clear
 			inline int length() const {
 				int n = abs(num[0]), ret = n*3;
 				if(n == 0) return 0;
@@ -518,7 +518,7 @@ namespace grnum{
 			inline int GetDigit(int p) const {
 				int n = abs(num[0]);
 				if(n == 0) return 0;
-				if(p>n*3 || p<1) return 0;//Ô½½ç out of range
+				if(p>n*3 || p<1) return 0;//è¶Šç•Œ out of range
 				int x = p/3, y = p%3;
 				if(y == 0) return num[x]/100;
 				else if(y == 1) return num[x+1]%10;
@@ -601,11 +601,11 @@ namespace grnum{
 				num = HP_zip(num);
 				return 0;
 			}
-			inline vi vec(){
-				return HP_unzip(num);
+			inline vi getvec(){
+				return num;
 			}
 
-			//ÖØÔØÔËËã·û Overloaded operator
+			//é‡è½½è¿ç®—ç¬¦ Overloaded operator
 			HP operator+ (const HP& bbi) const {
 				vi a = this->num, b = bbi.num;
 				if(!a[0] || !b[0]) return HP(EMPTY);
@@ -672,7 +672,7 @@ namespace grnum{
 				vi a = this->num, b = bbi.num;
 				if(!a[0] || !b[0]) return HP(EMPTY);
 				if(HP_IsZERO(b)) return HP(EMPTY);
-				//³ıÒÔ0,´íÎó Division by zero, Error
+				//é™¤ä»¥0,é”™è¯¯ Division by zero, Error
 				else{
 					vi c = HP_Divide(a, b);
 					return HP(c);
@@ -695,7 +695,7 @@ namespace grnum{
 				vi a = this->num, b = bbi.num;
 				if(!a[0] || !b[0]) return HP(EMPTY);
 				if(HP_IsZERO(b)) return HP(EMPTY);
-				//Ä£0,´íÎó Module by zero, Error
+				//æ¨¡0,é”™è¯¯ Module by zero, Error
 				else{
 					vi c = HP_Module(a, b);
 					return HP(c);
@@ -714,19 +714,19 @@ namespace grnum{
 				return HP(ai) % bbi;
 			}
 
-			//³Ë·½ power
+			//ä¹˜æ–¹ power
 			friend HP HP_pow(const HP& abi, const HP& bbi){
 				vi a = abi.num, b = bbi.num;
 				if(!a[0] || !b[0]) return HP(EMPTY);
-				if(b[0] < 0) return HP(EMPTY);//¸º´ÎÃİ negative exponent(not supported)
-				if(HP_IsZERO(a) && HP_IsZERO(b)) return HP(EMPTY);//0^0ÎŞÒâÒå 0^0 is undefined
+				if(b[0] < 0) return HP(EMPTY);//è´Ÿæ¬¡å¹‚ negative exponent(not supported)
+				if(HP_IsZERO(a) && HP_IsZERO(b)) return HP(EMPTY);//0^0æ— æ„ä¹‰ 0^0 is undefined
 				if(HP_IsZERO(b)) return HP(ONE);//a^0 = 1 (a!=0)
 				if(HP_IsZERO(a)) return HP(ZERO);//0^b = 0 (b!=0)
 				if(HP_IsONE(a)) return HP(ONE);//1^a = 1
 				if(HP_IsM_ONE(a)) return (b[1]&1) ? HP(M_ONE) : HP(ONE);//-1^a
 				if(abs(a[0])>1 || a[1]>1){
 					if(bbi.length() > 8) return HP(EMPTY);
-				}//½á¹û¹ı´ó result considered too large
+				}//ç»“æœè¿‡å¤§ result considered too large
 				vi c = HP_Power(a, HP_vecTOll(b));
 				return HP(c);
 			}
@@ -1181,29 +1181,29 @@ namespace grnum{
 				return temp;
 			}
 
-			//ÊäÈëÖØÔØÔËËã·û Overloaded input operator
+			//è¾“å…¥é‡è½½è¿ç®—ç¬¦ Overloaded input operator
 			friend std::istream& operator>> (std::istream& is, HP& cbi){
-				vi a(1, 0);//¿ÕÖµ,³õÊ¼Öµ EMPTY, the original value
-				int na = 0;//Êı³¤¶È length of the number
-				char za = 0;//·ûºÅ sign(+/-)
-				char t;//ÁÙÊ±×Ö·û temporary character
+				vi a(1, 0);//ç©ºå€¼,åˆå§‹å€¼ EMPTY, the original value
+				int na = 0;//æ•°é•¿åº¦ length of the number
+				char za = 0;//ç¬¦å· sign(+/-)
+				char t;//ä¸´æ—¶å­—ç¬¦ temporary character
 				while(is.get(t)){
 					if(t < 33){
-						//²»¿É¼û×Ö·û invisible characters
+						//ä¸å¯è§å­—ç¬¦ invisible characters
 						if(na > 0) break;
 						else continue;
 					}
-					if(!is || t==EOF) break;// ÊäÈë½áÊø end of input
-					if(IsSign(t)){// ÊÇÕı¸ººÅ   the character is a sign
-						if(na) break;// ÒÑ¾­¿ªÊ¼ÊäÈëÊı×ÖÁË have started to read in digits
-						else if(za) break;// ÒÑ¾­ÓĞ·ûºÅÁË have a symbol already
+					if(!is || t==EOF) break;// è¾“å…¥ç»“æŸ end of input
+					if(IsSign(t)){// æ˜¯æ­£è´Ÿå·   the character is a sign
+						if(na) break;// å·²ç»å¼€å§‹è¾“å…¥æ•°å­—äº† have started to read in digits
+						else if(za) break;// å·²ç»æœ‰ç¬¦å·äº† have a symbol already
 						else za = t;
-					}else if(IsOpe(t)) break;// ÊÇÆäËûÔËËã·û other calculation characters
+					}else if(IsOpe(t)) break;// æ˜¯å…¶ä»–è¿ç®—ç¬¦ other calculation characters
 					else if(IsDigit(t)){
 						a.push_back(t-48);
 						na++;
-					}//¶ÁÈëÊı×Ö read in digits
-					else break;//ÆäËû×Ö·û other characters
+					}//è¯»å…¥æ•°å­— read in digits
+					else break;//å…¶ä»–å­—ç¬¦ other characters
 				}
 				if(t >= 32) is.putback(t);
 				if(!za) za = '+';
@@ -1215,7 +1215,7 @@ namespace grnum{
 				}
 				return is;
 			}
-			//Êä³öÖØÔØÔËËã·û Overloaded output operator
+			//è¾“å‡ºé‡è½½è¿ç®—ç¬¦ Overloaded output operator
 			friend std::ostream& operator<< (std::ostream& os, const HP& cbi){
 				vi c = cbi.num;
 				c = HP_unzip(c);
@@ -1395,7 +1395,7 @@ namespace grnum{
 	    c[0] = nc*signTOint(zc);
 		if(HP_NumCheck(c)) c = EMPTY;
 	    return c;
-	}//¸ĞĞ»ĞÇĞÇÀÏÊ¦ºÍGemini°ïÃ¦µ÷ÊÔ³Ë·¨Ëã·¨!
+	}//æ„Ÿè°¢æ˜Ÿæ˜Ÿè€å¸ˆå’ŒGeminiå¸®å¿™è°ƒè¯•ä¹˜æ³•ç®—æ³•!
 	 //Thanks to Teacher Stars and Gemini for helping debug the multiplication algorithm!
 	static char HP_DivCmp(int r, int n, const vi &a, const vi &b){
 	    if(a[r+n] > 0) return true;
@@ -1444,7 +1444,7 @@ namespace grnum{
 				c[i] += q;
 			}
 			while(!HP_DivCmp(i, nb, a, b)){
-	            // ¹À¸ßÁË£¬¼Ó»ØÒ»¸ö³ıÊı
+	            // ä¼°é«˜äº†ï¼ŒåŠ å›ä¸€ä¸ªé™¤æ•°
 	            for(j=1; j<=nb; j++){
 	                a[i+j-1] += b[j];
 	                if(a[i+j-1] >= JW){
@@ -1501,7 +1501,7 @@ namespace grnum{
 				}
 			}
 			while(!HP_DivCmp(i, nb, a, b)){
-	            // ¹À¸ßÁË£¬¼Ó»ØÒ»¸ö³ıÊı
+	            // ä¼°é«˜äº†ï¼ŒåŠ å›ä¸€ä¸ªé™¤æ•°
 	            for(j=1; j<=nb; j++){
 	                a[i+j-1] += b[j];
 	                if(a[i+j-1] >= JW){
@@ -1536,17 +1536,17 @@ namespace grnum{
 	}
 
 	static vi HP_ThouTOBit(vi a){
-		//²»Òª¼ÓÒıÓÃ!
+		//ä¸è¦åŠ å¼•ç”¨!
 		//do not use quoting!
 		vi b(1, 0), temp;
 		int nb = 0;
 		if(HP_IsZERO(a)) a[0] = abs(a[0]);
 
-		//È¡³ö·ûºÅ£¬±£Áô¾ø¶ÔÖµ
+		//å–å‡ºç¬¦å·ï¼Œä¿ç•™ç»å¯¹å€¼
 		//get the sign, and keep the absolute value
 		int sign = intTOone(a[0]);
 		a[0] = abs(a[0]);
-		//¶Ì³ı·¨×ª½øÖÆ
+		//çŸ­é™¤æ³•è½¬è¿›åˆ¶
 		//Short Division Conversion
 		while(!HP_IsZERO(a)){
 			temp = HP_Module(a, BI);
@@ -1555,13 +1555,13 @@ namespace grnum{
 			a = HP_Divide(a, BI);
 		}
 
-		//·ûºÅÎ»
+		//ç¬¦å·ä½
 		//sign storage
 		nb++;
 		if(sign > 0) b.push_back(0);
 		else b.push_back(BIT_JW-1);
 		if(sign < 0){
-			//È¡²¹Âë
+			//å–è¡¥ç 
 			//Two's Complement
 			int i;
 			for(i=1; i<nb; i++) b[i] = b[i]^(BIT_JW-1);
@@ -1657,10 +1657,10 @@ namespace grnum{
 			ll bb = HP_vecTOll(b);
 			return aa > bb;
 		}
-		//ÒìºÅ different signs
+		//å¼‚å· different signs
 		if(na>0 && nb<0) return true;
 		if(na<0 && nb>0) return false;
-		//Í¬ºÅ the same sign
+		//åŒå· the same sign
 		int f = intTOone(na), i;
 		na = abs(na), nb = abs(nb);
 		if(na > nb) return f>0 ? true : false;
@@ -1669,7 +1669,7 @@ namespace grnum{
 			if(a[i] > b[i]) return f>0 ? true : false;
 			if(a[i] < b[i]) return f>0 ? false : true;
 		}
-		return false;//ÏàµÈ equal
+		return false;//ç›¸ç­‰ equal
 	}
 	static bool HP_geq(const vi& a, const vi& b){
 		int na = a[0], nb = b[0];
@@ -1688,7 +1688,7 @@ namespace grnum{
 			if(a[i] > b[i]) return f>0 ? true : false;
 			if(a[i] < b[i]) return f>0 ? false : true;
 		}
-		return true;//ÏàµÈ equal
+		return true;//ç›¸ç­‰ equal
 	}
 	static bool HP_lss(const vi& a, const vi& b){
 		int na = a[0], nb = b[0];
@@ -1707,7 +1707,7 @@ namespace grnum{
 			if(a[i] > b[i]) return f>0 ? false : true;
 			if(a[i] < b[i]) return f>0 ? true : false;
 		}
-		return false;//ÏàµÈ equal
+		return false;//ç›¸ç­‰ equal
 	}
 	static bool HP_leq(const vi& a, const vi& b){
 		int na = a[0], nb = b[0];
@@ -1726,7 +1726,7 @@ namespace grnum{
 			if(a[i] > b[i]) return f>0 ? false : true;
 			if(a[i] < b[i]) return f>0 ? true : false;
 		}
-		return true;//ÏàµÈ equal
+		return true;//ç›¸ç­‰ equal
 	}
 	static bool HP_equ(const vi& a, const vi& b){
 		int n = abs(a[0]), i;
@@ -1755,27 +1755,27 @@ namespace grnum{
 
 	HP getHP(){
 		vi a(1, 0);
-		int na = 0;// ³¤¶È length
+		int na = 0;// é•¿åº¦ length
 		char za = 0, t;// +-
 		while((t = getchar())){
 			if(t<=32 && na) break;
-			// ¶ÁÍêÖ®ºó²»¿É¼û×Ö·û invisible characters after reading in
-			if(t == '\n'){//Óöµ½»»ĞĞ·û(ASCII < 20) line break (ASCII < 20)
-				if(na) break;//ÒÑ¾­ÓĞÊı×Ö,ÊäÈë½áÊø there have been digits, input ends
-				else continue;//»¹Ã»ÓĞÊı×Ö,¼ÌĞøÊäÈë
+			// è¯»å®Œä¹‹åä¸å¯è§å­—ç¬¦ invisible characters after reading in
+			if(t == '\n'){//é‡åˆ°æ¢è¡Œç¬¦(ASCII < 20) line break (ASCII < 20)
+				if(na) break;//å·²ç»æœ‰æ•°å­—,è¾“å…¥ç»“æŸ there have been digits, input ends
+				else continue;//è¿˜æ²¡æœ‰æ•°å­—,ç»§ç»­è¾“å…¥
 				//there haven't been digits, continue to input
 			}
-			if(t == EOF) break;// ÊäÈë½áÊø end of input
-			if(IsSign(t)){// ÊÇÕı¸ººÅ   the character is a sign
-				if(na) break;// ÒÑ¾­¿ªÊ¼ÊäÈëÊı×ÖÁË have started to read in digits
-				else if(za) break;// ÒÑ¾­ÓĞ·ûºÅÁË have a symbol already
+			if(t == EOF) break;// è¾“å…¥ç»“æŸ end of input
+			if(IsSign(t)){// æ˜¯æ­£è´Ÿå·   the character is a sign
+				if(na) break;// å·²ç»å¼€å§‹è¾“å…¥æ•°å­—äº† have started to read in digits
+				else if(za) break;// å·²ç»æœ‰ç¬¦å·äº† have a symbol already
 				else za = t;
-			}else if(IsOpe(t)) break;// ÊÇÆäËûÔËËã·û other calculation characters
+			}else if(IsOpe(t)) break;// æ˜¯å…¶ä»–è¿ç®—ç¬¦ other calculation characters
 			else if(IsDigit(t)){
 				a.push_back(t-48);
 				na++;
-			}//¶ÁÈëÊı×Ö read in digits
-			else break;//ÆäËû×Ö·û other characters
+			}//è¯»å…¥æ•°å­— read in digits
+			else break;//å…¶ä»–å­—ç¬¦ other characters
 		}
 		if(!za) za = '+';
 		a[0] = na*signTOint(za);
@@ -1795,7 +1795,7 @@ namespace grnum{
 			if(nc == abs(c[0])) printf("%d", c[nc]);
 			else printf("%03d", c[nc]);
 		}
-		return 0;//ÎŞ´íÎó nothing is wrong
+		return 0;//æ— é”™è¯¯ nothing is wrong
 	}
 	int putsHP(const HP& cbi){
 		int ret = putHP(cbi);
