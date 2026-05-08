@@ -20,33 +20,39 @@ void instructions(int lang){
     printf(COLOR_ORI);
 }
 void init(){
-	#ifndef ANDR15
-    freopen("input.log", "w", stdout);
-    printf("GreatCalculator%s\n", version);
-    freopen("output.log", "w", stdout);
-    printf("GreatCalculator%s\n", version);
-    out_con();
-    #endif
+	#ifndef NOFILE
+	    freopen("input.log", "w", stdout);
+	    printf("GreatCalculator%s\n", version);
+	    freopen("output.log", "w", stdout);
+	    printf("GreatCalculator%s\n", version);
+	    out_con();
+	#endif
 }
 int lan_ch(){
-    int lang = 0;
-    freopen("lang.txt", "r", stdin);
-    scanf("%d", &lang);
-    if(lang<1 || lang>2) puts("1.简体中文\n2.English");
-    input_con();
- 
-    while(lang<1 || lang>2){
-        puts("请选择一门语言。(输入1或2)");
-        puts("Please choose a language.(Type in 1 or 2)");
-        scanf("%d", &lang);
-        clear_line();
-    }
- 
-    freopen("lang.txt", "w", stdout);
-    printf("%d\n", lang);
-    puts("1.简体中文\n2.English");
-    out_con();
-    return lang;
+	#ifndef NOFILE
+		printf(COLOR_INS);
+	    int lang = 0;
+	    freopen("lang.txt", "r", stdin);
+	    scanf("%d", &lang);
+	    if(lang<1 || lang>2) puts("1.简体中文\n2.English");
+	    input_con();
+
+	    while(lang<1 || lang>2){
+	        puts("请选择一门语言。(输入1或2)");
+	        puts("Please choose a language.(Type in 1 or 2)");
+	        scanf("%d", &lang);
+	        clear_line();
+	    }
+
+	    freopen("lang.txt", "w", stdout);
+	    printf("%d\n", lang);
+	    puts("1.简体中文\n2.English");
+	    out_con();
+	    printf(COLOR_ORI);
+	    return lang;
+    #else
+	    return 2;
+    #endif
 }
  
 #endif
