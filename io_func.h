@@ -9,19 +9,23 @@
 
 // 启用 ANSI 转义序列支持
 #ifdef _WIN32
-#include<windows.h>
-#ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
-#define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
+	#include<windows.h>
+	#ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
+		#define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
+	#endif
 #endif
 bool enable_ansi_support() {
-    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    if (hOut == INVALID_HANDLE_VALUE) return false;
-    DWORD dwMode = 0;
-    if (!GetConsoleMode(hOut, &dwMode)) return false;
-    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
-    return SetConsoleMode(hOut, dwMode);
+	#ifdef _WIN32
+	    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	    if (hOut == INVALID_HANDLE_VALUE) return false;
+	    DWORD dwMode = 0;
+	    if (!GetConsoleMode(hOut, &dwMode)) return false;
+	    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+	    return SetConsoleMode(hOut, dwMode);
+	#else
+		return true;
+	#endif
 }
-#endif
 
 vi EMPTY(1, 0);
 //文件流
@@ -41,9 +45,9 @@ void input_con(){
 }//不能频繁使用此函数 
 //输入输出函数
 inline void in_log(char x){
-	#ifndef ANDR15
-    freopen("input.log", "a", stdout);
-    putchar(x); out_con();
+	#ifndef NOFILE
+	    freopen("input.log", "a", stdout);
+	    putchar(x); out_con();
     #endif
 }
 inline void clear_line(){
@@ -134,8 +138,8 @@ char read(vi &a, vi &b, vi c, vi d, char &op){
 }
 void out(vi c, char fi){
     int nc = abs(c[0]);
-    #ifndef ANDR15
-    if(nc > 1e4) return;
+    #ifndef NOFILE
+	    if(nc > 1e4) return;
     #endif
     if(fi) freopen("output.log", "a", stdout);
     if(!fi) printf(COLOR_RES);
@@ -155,11 +159,11 @@ void sci_out(vi c, int lang, char fi){
     putchar('.');
     for(i=nc-1; nc-i<11 && i; i--) putchar(c[i]+48);
     printf("e%d\n", nc-1);
-    #ifndef ANDR15
-    if(nc > 1e4){
-        if(lang == 1) puts("前往ans.txt查看精确结果");
-        else if(lang == 2) puts("see ans.txt for precise result");
-    }
+    #ifndef NOFILE
+	    if(nc > 1e4){
+	        if(lang == 1) puts("前往ans.txt查看精确结果");
+	        else if(lang == 2) puts("see ans.txt for precise result");
+	    }
     #endif
     if(!fi) printf(COLOR_ORI);
     if(fi) out_con(); 
