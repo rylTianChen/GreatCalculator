@@ -9,13 +9,13 @@
             324892374923749823 / 823904832048
             2349882974928472398 ^ 322
             230984209384230984023984230 % 289472398
-            符号说明:+加 -减 *乘 /除 ^乘方 %取模 &按位与 |按位或
+            符号说明:+加 -减 *乘 /除 ^乘方 %取模 &按位与 |按位或 !按位异或
             输入回车代表输入结束
             注意:
             1.请将输入法切换为英文,不要输入中文字符
             2.支持连续输入：只输入运算符和第二个数，使用上次结果继续计算
             3.也可以只输入运算符，使用上一次和上上次结果进行运算
-            4.由于乘方^和按位异或^符号冲突，本计算器保留乘方运算，之后可能会加入按位异或
+            4.^为幂运算，!为按位异或运算。注意"!"仅在此计算器中为按位异或。
       说明:
       1.程序自动忽略空格逗号下划线，自动去除前导零.
       2.除法只取整数部分。
@@ -31,37 +31,31 @@ sample.txt是一个使用例子。
 Welcome to use GreatCalculator!
 
 Instructions:
-      How to Use:
-            Enter a simple arithmetic expression, examples:
+      Usage Method:
+            Enter a simple arithmetic expression, for example:
             2190,1872 + 3279,8742,8397
             9_02384_0923_8409_2384_0928 --2_3492,7498_2798
             39828749823789 * -0000032   89798247923
             324892374923749823 / 823904832048
             2349882974928472398 ^ 322
             230984209384230984023984230 % 289472398
-            Symbol Description: + Addition  - Subtraction  * Multiplication  / Division  ^ Power  % Modulo  & Bitwise AND  | Bitwise OR
+Symbol Description: +Add  -Subtract  *Multiply  /Divide  ^Power  %Modulo  &Bitwise AND  |Bitwise OR  !Bitwise XOR
             Press Enter to finish input
-            Notes:
-            1. Please switch your input method to English and do not enter Chinese characters
-            2. Continuous input is supported: only enter the operator and the second number to continue calculation with the last result
-            3. You can also enter only an operator to calculate with the last and second last results
-            4. Since the symbol ^ conflicts between power operation and bitwise XOR, this calculator prioritizes power operation. Bitwise XOR may be added in future updates
+Notes:
+            1.Please switch the input method to English and do not enter Chinese characters
+            2.Continuous calculation supported: only enter the operator and the second number to continue calculation with the last result
+            3.You can also enter only the operator to calculate with the last and second last results
+            4.^ stands for power operation, ! stands for bitwise XOR operation. Note that "!" is only defined as bitwise XOR in this calculator.
 
-      Remarks:
-      1. The program automatically ignores spaces, commas and underscores, and automatically removes leading zeros.
-      2. Division only returns the integer part.
-      3. Bitwise operations run slowly, please wait patiently during use. I apologize for any inconvenience caused.
-      4. If the calculated numbers are extremely large, the program will take a long time to compute, please wait patiently.
-      5. Do not use this calculator for ultra-large number calculations, otherwise unknown issues may occur.
+Explanation:
+      1.The program automatically ignores spaces, commas and underscores, and automatically removes leading zeros.
+      2.Division only takes the integer part.
+      3.Bitwise operations run slowly, please wait patiently during use. We apologize for any inconvenience caused.
+      3.If the involved numbers are extremely large, the program will take a longer time to calculate, please wait patiently.
+      4.Do not use this calculator to compute extremely large numbers, otherwise unknown problems may occur.
 
-This calculator is independently developed by a single developer (TianChen). Imperfections and errors may exist.
-If calculation errors or program crashes occur, please close the software and send feedback to:
-lyrTianChen09@outlook.com
-When submitting feedback, please describe the specific problem in detail and attach input.log and output.log.
-These two log files are automatically generated on the first launch of the program.
-These files are critical for troubleshooting, please be sure to include them.
-Do not run GreatCalculator.exe again before sending feedback, or all log content will be overwritten and lost.
+The development team has only one member (Tianchen). The calculator may inevitably have bugs. If calculation errors or program abnormal termination occur, please close the program and send feedback to lyrTianChen09@outlook.com. When sending feedback, please describe the error and attach input.log and output.log (the two files will be automatically created when the program runs for the first time). These two files are very important, please be sure to send them! Do not run GreatCalculator.exe again before sending, otherwise the content in the files will be lost.
 
-sample.txt provides detailed usage examples for reference.
+sample.txt is a usage example.
 
-Wish you a pleasant user experience and bug-free operation forever!
+Wish you a pleasant use experience and never encounter bugs!
