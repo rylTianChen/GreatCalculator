@@ -1,22 +1,23 @@
 #ifndef NUMCH_GR
-#define NUMCH_GR 1
+#define NUMCH_GR
 
 char fh[] = "*/^%&|!";
-//æ•°ç›¸å…³å‡½æ•°
+//ÊýÏà¹Øº¯Êý
 #include<cmath> //abs()
 int max(int x, int y) {return x>y ? x : y;}
 int min(int x, int y) {return x<y ? x : y;}
 void swap(int &x, int &y) {int t = x; x = y, y = t;}
-//å­—ç¬¦ç›¸å…³å‡½æ•°
+//×Ö·ûÏà¹Øº¯Êý
 char posi_nega(char x) {return x=='+' ? '-' : '+';}
 char sym_multi(char x, char y) {return x==y ? '+' : '-';}
+char is_digit(char x) {return x>='0' && x<='9';}
 char is_zf(char t) {return t=='+' || t=='-';}
 char is_fh(char x){
     for(auto ch : fh)
         if(ch == x) return 1;
     return 0;
 }
-//æ•°å’Œç¬¦å·è½¬æ¢å‡½æ•°
+//ÊýºÍ·ûºÅ×ª»»º¯Êý
 char int_zf(int x) {return x>=0 ? '+' : '-';}
 int zf_int(char x) {return x=='+' ? 1 : -1; }
 

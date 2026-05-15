@@ -1,10 +1,12 @@
 #ifndef VEC_GR
-#define VEC_GR 2
+#define VEC_GR
 
-#include"defs.h"
+#include<vector>
+using vi = std::vector<int>;
+using ll = long long;
 #include"numch_func.h"
 
-//vector鐩稿叧鍑芥暟
+//vector相关函数
 void all_resize(int n, vi &a, vi &b, vi &c) {a.resize(n), b.resize(n), c.resize(n);}
 void to_EMPTY(vi &a) {a.clear(), a.push_back(0);}
 void vec_swap(vi &a, vi &b) {a.swap(b);}
@@ -41,13 +43,13 @@ vi zip(const vi &a){
     int nb = (na+2)/3;
     vi b(nb+5, 0);
     for(i=1; i<=na; i+=3){
-    	b[i/3+1] += get(a, i+2)*100;
-    	b[i/3+1] += get(a, i+1)*10;
-    	b[i/3+1] += get(a, i);
+        b[i/3+1] += get(a, i+2)*100;
+        b[i/3+1] += get(a, i+1)*10;
+        b[i/3+1] += get(a, i);
     }
     b[0] = f*nb;
     return b;
-}//鍘嬩綅
+}//压位
 vi unzip(const vi &a){
     int f = a[0]>0 ? 1 : -1;
     int na = abs(a[0]), i;
@@ -61,6 +63,6 @@ vi unzip(const vi &a){
     b[0] = f*nb;
     pop_front_zero(b);
     return b;
-}//瑙ｅ帇
+}//解压
 
 #endif
