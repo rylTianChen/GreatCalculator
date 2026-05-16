@@ -60,4 +60,7 @@ if not errorlevel 1 (
 )
 REM errorlevel: 上一行程序返回的值, 0代表正常。
 REM if not errorlevel 1的意思是!(errorlevel >= 1)
+echo 删除资源文件
+del %codename%.rc
+del %codename%.res
 pause
